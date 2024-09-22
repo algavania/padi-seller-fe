@@ -47,8 +47,9 @@ const colors = {
     },
     danger: {
       50: "#FEE4E2",
-      100: "#F04438",
+      100: "#FEE4E2",
       200: "#B71F14",
+      500: "#F04438",
     },
     warning: {
       50: "#FEEFC6",
@@ -82,7 +83,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate")
-  ],
+  plugins: [require("tailwindcss-animate")],
 };
