@@ -7,3 +7,19 @@ html, body {
 .primary-color {
   background-color: #0092AE!important;
 }
+
+.primary-color-text {
+  color: #0092AE!important;
+}
+
+.w-sidebar {
+  width: 15rem;
+}
+
+.border-none {
+  border: none!important;
+}
+
+.important-info-w {
+  width: 30rem!important;
+}

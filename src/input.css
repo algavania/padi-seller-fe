@@ -38,4 +38,8 @@
   .body-small {
     @apply font-nunitoSans text-[1rem];
   }
+
+  .body-very-small {
+    @apply font-nunitoSans text-[0.9rem];
+  }
 }
