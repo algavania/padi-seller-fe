@@ -32,9 +32,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     setError(null);
     try {
-      const { token } = await login(email, password);
-      localStorage.setItem("authToken", token);
-      localStorage.setItem("userEmail", email);
+      const res = await login(email, password);
+      console.log('res auth', res);
+      localStorage.setItem("authToken", res.data.access_token);
+      localStorage.setItem("userEmail", res.data.email);
       setIsAuthenticated(true);
       setUser({ email });
     } catch (err: any) {

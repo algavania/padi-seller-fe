@@ -1,3 +1,4 @@
+import RevenueStatisticsCard from "./RevenueStatisticsCard";
 import StatisticsCard from "./StatisticsCard";
 
 export default function StatisticsSection() {
@@ -9,7 +10,7 @@ export default function StatisticsSection() {
       </h3>
       <div className="grid grid-cols-2 gap-4 w-full mt-3">
         <StatisticsCard/>
-        <StatisticsCard/>
+        <RevenueStatisticsCard/>
       </div>
     </div>
   );

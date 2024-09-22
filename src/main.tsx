@@ -5,6 +5,7 @@ import "./index.css";
 import { ThemeProvider } from "@emotion/react";
 import { createTokens } from "@legion-ui/core";
 import { AuthProvider } from "./context/AuthContext.tsx";
+import { OrderProvider } from "./context/OrderContext.tsx";
 
 const TokensPadi = createTokens({
   apiUrl: "https://api.github.com/repos/telkom-design/theme/contents/pdm.json",
@@ -21,7 +22,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider theme={themePadi}>
       <AuthProvider>
-        <App />
+        <OrderProvider>
+          <App />
+        </OrderProvider>
       </AuthProvider>
     </ThemeProvider>
   </StrictMode>

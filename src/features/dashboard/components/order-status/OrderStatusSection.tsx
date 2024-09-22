@@ -1,24 +1,21 @@
+import { useEffect } from "react";
 import OrderStatusItem from "./OrderStatusItem";
+import { useOrder } from "@/context/OrderContext";
+import moment from "moment";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Snackbar } from "@legion-ui/core";
+import { OrderStatus, OrderTodayStatus } from "@/models/order";
 
 export default function OrderStatusSection() {
-  const orderStatus = [
-    {
-      title: "Pesanan Baru",
-      total: 10,
-    },
-    {
-      title: "Diproses",
-      total: 3,
-    },
-    {
-      title: "Siap Dikirim",
-      total: 5,
-    },
-    {
-      title: "Siap Penagihan",
-      total: 4,
-    },
-  ];
+  const { orderStatus, loading, error, fetchOrderStatus } = useOrder();
+
+  useEffect(() => {
+    // const date = moment().format("YYYY-MM-DD");
+    const date = "2024-08-02";
+    fetchOrderStatus(date);
+  }, []);
+  console.log('orderStatus', orderStatus);
+
   return (
     <div>
       <h2 className="heading-6">Jumlah Pesanan Per Status</h2>
@@ -26,11 +23,28 @@ export default function OrderStatusSection() {
         Pantau jumlah pesananmu di setiap status pesanan untuk menjaga pelayanan
         tokomu
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
-        {orderStatus.map((status, index) => (
-          <OrderStatusItem key={index} title={status.title} total={status.total} />
-        ))}
-      </div>
+
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <Skeleton key={index} className="h-20 w-full rounded-md" />
+          ))}
+        </div>
+      ) : error ? (
+        <Snackbar message={error} />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
+                    {orderStatus &&
+            orderStatus.data.today.map((status: OrderTodayStatus) => (
+              <OrderStatusItem
+                key={status.id}
+                title={status.status}
+                total={status.total}
+              />
+            ))}
+
+        </div>
+      )}
     </div>
   );
 }
