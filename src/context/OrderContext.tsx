@@ -12,7 +12,7 @@ import {
 } from "@/models/order";
 
 type OrderContextType = {
-  orders: any[];
+  orders: any | null;
   orderStatus: OrderStatusResponse | null;
   productTypeCount: ProductTypeCountResponse | null;
   revenue: RevenueResponse | null;
@@ -42,6 +42,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
     try {
       const response = await getAllOrders();
+      console.log('response orders',response);
       setOrders(response);
     } catch (err) {
       setError("Failed to fetch orders");
