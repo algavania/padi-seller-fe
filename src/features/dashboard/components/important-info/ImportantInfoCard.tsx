@@ -7,7 +7,7 @@ export default function ImportantInfoCard() {
   const info2 =
     "Batas waktu respon pesanan diproses adalah 3 x 24 jam (hari kerja: Senin s.d. Jumat) untuk semua pilihan kurir sebelum pesanan tersebut dibatalkan.";
   return (
-    <Card bordered className="important-info-w" color="#DBDDDF">
+    <Card bordered className="important-info-w h-fit" color="#DBDDDF">
       <h2 className="body-large font-bold">Info Penting</h2>
       <div
         className="flex flex-col gap-4 mt-3 px-3 overflow-y-auto"

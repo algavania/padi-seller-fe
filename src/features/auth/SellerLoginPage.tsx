@@ -1,16 +1,8 @@
-import {
-  Carousel,
-  CarouselApi,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Button, Card, Textfield } from "@legion-ui/core";
-import { ArrowRight2, Eye, EyeSlash, Shop, ShoppingCart } from "iconsax-react";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Button, Card, Textfield, Snackbar } from "@legion-ui/core";
+import { Eye, EyeSlash } from "iconsax-react";
+import { useState } from "react";
 import { CarouselComponent } from "./components/CarouselComponent";
+import { useAuth } from "../../context/AuthContext";
 
 export default function SellerLoginPage() {
   const carousels = [
@@ -34,7 +26,19 @@ export default function SellerLoginPage() {
     },
   ];
 
+  const { loginUser, loading, error } = useAuth();
   const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showSnackbar, setShowSnackbar] = useState(false);
+
+  // Function to handle login
+  const handleLogin = async () => {
+    await loginUser(email, password);
+    if (error) {
+      setShowSnackbar(true);
+    }
+  };
 
   return (
     <div className="bg-primary-500 min-h-screen grid grid-cols-2 items-center justify-center gap-12 px-12">
@@ -53,6 +57,8 @@ export default function SellerLoginPage() {
           className="font-nunitoSans"
           block
           type="email"
+          value={email}
+          onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
         />
 
         <Textfield
@@ -60,6 +66,8 @@ export default function SellerLoginPage() {
           className="font-nunitoSans my-5"
           block
           type={isPasswordVisible ? "text" : "password"}
+          value={password}
+          onChange={(e) => setPassword((e.target as HTMLInputElement).value)}
           iconRight={
             isPasswordVisible ? (
               <Eye
@@ -79,8 +87,15 @@ export default function SellerLoginPage() {
           }
         />
 
-        <Button className="primary-color" block>
-            <div className="text-center w-full">Login</div>
+        {error && <p className="text-danger-500 mb-4 text-center w-full">{error}</p>}
+
+        <Button
+          className="primary-color"
+          block
+          loading={loading}
+          onClick={handleLogin}
+        >
+          <div className="text-center w-full">Login</div>
         </Button>
       </Card>
     </div>

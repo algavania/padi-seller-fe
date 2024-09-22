@@ -12,7 +12,7 @@ export default function NewestTransactionSection() {
       </h3>
       <h4 className="body-very-small mt-3 text-gray-900">
         Terakhir update:
-        <span className="text-primary-500">02 September 2024, 12:00 WIB</span>
+        <span className="text-primary-500"> 02 September 2024, 12:00 WIB</span>
       </h4>
       <div className="w-full mt-3">
         <div className="flex justify-between items-end mb-5">
