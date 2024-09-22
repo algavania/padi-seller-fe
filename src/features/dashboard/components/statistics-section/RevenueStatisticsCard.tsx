@@ -8,8 +8,8 @@ import OrderLineChart from "./OrderLineChart";
 import { formatRupiah } from "@/utils/currencyFormatter";
 
 export default function RevenueStatisticsCard() {
-  const [recommendation, setRecommendation] = useState("");
-  const { revenue, loading, error, fetchRevenue } = useOrder(); 
+  const [recommendation, _] = useState("");
+  const { revenue, loading, fetchRevenue } = useOrder(); 
 
   useEffect(() => {
     // const date = moment().format("YYYY-MM-DD");

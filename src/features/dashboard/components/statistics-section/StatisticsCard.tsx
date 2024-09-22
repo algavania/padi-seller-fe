@@ -7,7 +7,7 @@ import { useState } from "react";
 import OrderLineChart from "./OrderLineChart";
 
 export default function StatisticsCard() {
-  const [recommendation, setRecommendation] = useState("");
+  const [recommendation, _] = useState("");
   const { orderStatus, loading } = useOrder();
   let previousDayComparison = orderStatus?.data.previousDayComparison || "0%";
   const isNegative = previousDayComparison.startsWith("-");

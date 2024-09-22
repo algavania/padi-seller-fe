@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import OrderStatusItem from "./OrderStatusItem";
 import { useOrder } from "@/context/OrderContext";
-import moment from "moment";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Snackbar } from "@legion-ui/core";
-import { OrderStatus, OrderTodayStatus } from "@/models/order";
+import { OrderTodayStatus } from "@/models/order";
 
 export default function OrderStatusSection() {
   const { orderStatus, loading, error, fetchOrderStatus } = useOrder();

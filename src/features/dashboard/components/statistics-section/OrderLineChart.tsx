@@ -1,4 +1,3 @@
-// OrderLineChart.tsx
 import React from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -10,6 +9,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartOptions,
 } from "chart.js";
 import { OrderStatus } from "@/models/order";
 
@@ -48,7 +48,7 @@ const OrderLineChart: React.FC<OrderLineChartProps> = ({ orders }) => {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     plugins: {
       legend: {
@@ -90,9 +90,10 @@ const OrderLineChart: React.FC<OrderLineChartProps> = ({ orders }) => {
       },
     },
   };
-
   return (
-    <div style={{ height: "7rem", width: "100%" }}> {/* Set height here */}
+    <div style={{ height: "7rem", width: "100%" }}>
+      {" "}
+      {/* Set height here */}
       <Line data={data} options={options} />
     </div>
   );

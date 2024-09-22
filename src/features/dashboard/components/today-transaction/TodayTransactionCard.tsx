@@ -1,6 +1,6 @@
 import { Button, Card } from "@legion-ui/core";
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from "chart.js";
 import { ArrowCircleRight2 } from "iconsax-react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -31,8 +31,8 @@ export default function TodayTransactionCard() {
     ],
   };
 
-  const options = {
-    cutout: "80%", // This creates the "donut" effect
+  const options: ChartOptions<"doughnut"> = {
+    cutout: "80%", 
     plugins: {
       legend: {
         position: "right",

@@ -1,4 +1,4 @@
-import { Button, Card } from "@legion-ui/core";
+import { Card } from "@legion-ui/core";
 import ImportantInfoItem from "./ImportantInfoItem";
 
 export default function ImportantInfoCard() {

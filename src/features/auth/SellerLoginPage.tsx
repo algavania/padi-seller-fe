@@ -1,4 +1,4 @@
-import { Button, Card, Textfield, Snackbar } from "@legion-ui/core";
+import { Button, Card, Textfield } from "@legion-ui/core";
 import { Eye, EyeSlash } from "iconsax-react";
 import { useState } from "react";
 import { CarouselComponent } from "./components/CarouselComponent";
@@ -30,14 +30,10 @@ export default function SellerLoginPage() {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showSnackbar, setShowSnackbar] = useState(false);
 
   // Function to handle login
   const handleLogin = async () => {
     await loginUser(email, password);
-    if (error) {
-      setShowSnackbar(true);
-    }
   };
 
   return (
