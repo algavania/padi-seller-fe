@@ -1,5 +1,5 @@
 import { Button, Card } from "@legion-ui/core";
-import { Bar } from "react-chartjs-2"; // Import the Bar chart component
+import { Bar } from "react-chartjs-2"; 
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -7,10 +7,10 @@ import {
   BarElement,
   Tooltip,
   Legend,
-} from "chart.js"; // Import necessary components from Chart.js
+  ChartOptions,
+} from "chart.js";
 import { ArrowCircleRight2 } from "iconsax-react";
 
-// Register required Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 export default function TopCategoriesCard() {
@@ -39,7 +39,7 @@ export default function TopCategoriesCard() {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"bar"> = {
     indexAxis: "y",
     elements: {
       bar: {
