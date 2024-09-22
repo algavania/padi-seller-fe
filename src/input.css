@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply font-nunitoSans;
+}
+
+@layer utilities {
+  .heading-1 {
+    @apply font-nunitoSans font-bold text-[4rem];
+  }
+
+  .heading-2 {
+    @apply font-nunitoSans font-bold text-[3rem];
+  }
+
+  .heading-3 {
+    @apply font-nunitoSans font-bold text-[2.5rem];
+  }
+
+  .heading-4 {
+    @apply font-nunitoSans font-bold text-[2.25rem];
+  }
+
+  .heading-5 {
+    @apply font-nunitoSans font-bold text-[2rem];
+  }
+
+  .heading-6 {
+    @apply font-nunitoSans font-bold text-[1.5rem];
+  }
+
+  .body-large {
+    @apply font-nunitoSans text-[1.25rem];
+  }
+
+  .body-small {
+    @apply font-nunitoSans text-[1rem];
+  }
+}
