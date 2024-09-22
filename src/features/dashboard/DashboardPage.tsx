@@ -6,6 +6,7 @@ import ImportantInfoCard from "./components/important-info/ImportantInfoCard";
 import OrderStatusSection from "./components/order-status/OrderStatusSection";
 import StatisticsSection from "./components/statistics-section/StatisticsSection";
 import NewestTransactionSection from "./components/newest-transaction/NewestTransactionSection";
+import TodayTransactionSection from "./components/today-transaction/TodayTransactionSection";
 
 export default function DashboardPage() {
   return (
@@ -30,6 +31,9 @@ export default function DashboardPage() {
           <StatisticsSection />
           <div className="mt-5"></div>
           <NewestTransactionSection />
+          <div className="mt-5"></div>
+          <TodayTransactionSection />
+          <div className="mt-5"></div>
         </div>
       </div>
     </main>

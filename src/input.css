@@ -35,6 +35,10 @@
     @apply font-nunitoSans text-[1.25rem];
   }
 
+  .body-medium {
+    @apply font-nunitoSans text-[1.1rem];
+  }
+
   .body-small {
     @apply font-nunitoSans text-[1rem];
   }

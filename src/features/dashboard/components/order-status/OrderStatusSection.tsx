@@ -27,8 +27,8 @@ export default function OrderStatusSection() {
         tokomu
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
-        {orderStatus.map((status) => (
-          <OrderStatusItem title={status.title} total={status.total} />
+        {orderStatus.map((status, index) => (
+          <OrderStatusItem key={index} title={status.title} total={status.total} />
         ))}
       </div>
     </div>
