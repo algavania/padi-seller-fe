@@ -23,3 +23,7 @@ html, body {
 .important-info-w {
   width: 30rem!important;
 }
+
+table.legion-table--hoverable thead tr, tr:hover {
+  background-color: #F2F4F7!important;
+}
