@@ -19,6 +19,7 @@ export default function OrderStatusDropdown() {
           </div>
         </SelectTrigger>
         <SelectContent side="bottom">
+          <SelectItem value="Semua">Semua</SelectItem>
           <SelectItem value="Pesanan Baru">Pesanan Baru</SelectItem>
           <SelectItem value="Diproses Penjual">Diproses Penjual</SelectItem>
           <SelectItem value="Siap Penagihan">Siap Penagihan</SelectItem>

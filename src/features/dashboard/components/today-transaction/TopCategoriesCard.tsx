@@ -1,5 +1,5 @@
 import { Button, Card } from "@legion-ui/core";
-import { Bar } from "react-chartjs-2"; 
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,31 +10,46 @@ import {
   ChartOptions,
 } from "chart.js";
 import { ArrowCircleRight2 } from "iconsax-react";
+import { useEffect, useState } from "react";
+import { useOrder } from "@/context/OrderContext";
+import { Skeleton } from "@/components/ui/skeleton"; // Adjust this import based on your folder structure
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 export default function TopCategoriesCard() {
+  const [recommendation, _] = useState("");
+  const { productTypeCount, loading, fetchProductTypeCount } = useOrder();
+
+  useEffect(() => {
+    // const date = moment().format("YYYY-MM-DD");
+    const date = "2024-08-02";
+    fetchProductTypeCount(date);
+  }, []);
+
+  // Prepare data for the chart
+  const labels = productTypeCount?.data.map((item) => item.product_type) || [];
+  const chartData = productTypeCount?.data.map((item) => item.jumlah) || [];
+
   const data = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
+    labels: labels.length > 0 ? labels : ["Loading..."],
     datasets: [
       {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2],
+        label: "Total",
+        data: chartData.length > 0 ? chartData : [0],
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
+          "#0092AE",
+          "#0092AE",
+          "#0092AE",
+          "#0092AE",
+          "#0092AE",
         ],
         borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
+          "#0092AE",
+          "#0092AE",
+          "#0092AE",
+          "#0092AE",
+          "#0092AE",
         ],
-        borderWidth: 1,
       },
     ],
   };
@@ -75,17 +90,27 @@ export default function TopCategoriesCard() {
         </div>
       }
       footer={
-        <Button className="primary-color" block>
-          <div className="flex justify-center items-center w-full gap-3">
-            <p className="font-medium">
-              Rekomendasi cara pengelolaan produk toko Anda
-            </p>
-            <ArrowCircleRight2 size="24" color="white" variant="Bold" />
-          </div>
-        </Button>
+        <div>
+          <Button className="primary-color" block>
+            <div className="flex justify-center items-center w-full gap-3">
+              <p className="font-medium">
+                Rekomendasi cara pengelolaan produk toko Anda
+              </p>
+              <ArrowCircleRight2 size="24" color="white" variant="Bold" />
+            </div>
+          </Button>
+
+          {recommendation && <p className="mt-3">{recommendation}</p>}
+        </div>
       }
     >
-      <Bar data={data} options={options} />
+      {loading ? (
+        <div className="p-4">
+          <Skeleton className="h-40" /> {/* Adjust height based on your design */}
+        </div>
+      ) : (
+        <Bar data={data} options={options} />
+      )}
     </Card>
   );
 }
