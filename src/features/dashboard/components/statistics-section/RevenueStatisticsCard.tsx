@@ -6,27 +6,43 @@ import { HelpCircle, MoveDown, MoveUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import OrderLineChart from "./OrderLineChart";
 import { formatRupiah } from "@/utils/currencyFormatter";
+import { fetchGPTResponse } from "@/api/gptApi"; // Import the GPT request function
+import moment from "moment";
 
 export default function RevenueStatisticsCard() {
-  const [recommendation, _] = useState("");
-  const { revenue, loading, fetchRevenue } = useOrder(); 
+  const [recommendation, setRecommendation] = useState("");
+  const [loadingRecommendation, setLoadingRecommendation] = useState(false); // For loading state during GPT request
+  const { revenue, loading, fetchRevenue } = useOrder();
 
   useEffect(() => {
-    // const date = moment().format("YYYY-MM-DD");
-    const date = "2024-08-02";
+    const date = moment().format("YYYY-MM-DD");
+    // const date = "2024-08-02";
     fetchRevenue(date);
   }, []);
 
-  console.log('revenue', revenue);
-  let previousDayComparison = revenue?.data.previousDayComparison || "0%"; 
+  let previousDayComparison = revenue?.data.previousDayComparison || "0%";
   const isNegative = previousDayComparison.startsWith("-");
   if (isNegative) {
     previousDayComparison = previousDayComparison.replace("-", "");
   }
   const totalRevenue = revenue?.data.revenues?.reduce((acc, curr) => acc + (curr.value || 0), 0) || 0;
 
+  const handleGPTRequest = async () => {
+    setLoadingRecommendation(true); // Show loading spinner or text
+    try {
+      const prompt = `Berikan saya analisis tentang data saya dan berikan rekomendasi untuk meningkatkan pendapatan saya berdasarkan data berikut (jelaskan dalam 1 paragraf, maksimal 3 kalimat): ${JSON.stringify(revenue?.data.revenues)}`;
+      const response = await fetchGPTResponse(prompt); // Fetch GPT response
+      setRecommendation(response); // Set the recommendation from GPT
+    } catch (error) {
+      console.error("Failed to fetch recommendation:", error);
+      setRecommendation("Failed to get a recommendation.");
+    } finally {
+      setLoadingRecommendation(false); // Stop loading spinner
+    }
+  };
+
   return (
-    <Card bordered className="min-w-full">
+    <Card bordered className="min-w-full h-fit">
       {loading ? (
         <div className="p-4">
           <Skeleton className="h-6 mb-2" />
@@ -88,16 +104,27 @@ export default function RevenueStatisticsCard() {
         </div>
       )}
       <div className="mt-4"></div>
-      <Button className="primary-color" block>
+      <Button
+        className="primary-color"
+        block
+        onClick={handleGPTRequest} // Trigger GPT request
+        disabled={loadingRecommendation} // Disable button when loading
+      >
         <div className="flex justify-center items-center w-full gap-3">
-          <p className="font-medium">
-            Rekomendasi untuk meningkatkan pendapatan di toko Anda
-          </p>
-          <ArrowCircleRight2 size="24" color="white" variant="Bold" />
+          {loadingRecommendation ? (
+            <span className="text-white">Loading...</span>
+          ) : (
+            <>
+              <p className="font-medium">
+                Rekomendasi untuk meningkatkan pendapatan di toko Anda
+              </p>
+              <ArrowCircleRight2 size="24" color="white" variant="Bold" />
+            </>
+          )}
         </div>
       </Button>
       {recommendation && (
-        <div className="mt-2 text-gray-900">{recommendation}</div>
+        <div className="mt-2 text-gray-900">{recommendation}</div> // Display GPT recommendation
       )}
     </Card>
   );

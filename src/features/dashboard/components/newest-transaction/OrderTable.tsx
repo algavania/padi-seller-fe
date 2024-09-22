@@ -25,8 +25,8 @@ export default function OrderTable() {
         };
       case "Siap Penagihan":
         return {
-          textColor: "#FEE4E2",
-          bgColor: "#FEEFC6",
+          textColor: "#F04438",
+          bgColor: "#FEE4E2",
         };
       case "Pesanan Baru":
         return {

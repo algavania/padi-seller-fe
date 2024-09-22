@@ -64,7 +64,10 @@ export default function Sidebar() {
     <div className="p-3">
       <div className="flex gap-2 items-center justify-between">
         <div className="flex gap-3 justify-start items-center">
-          <Avatar />
+        <Avatar
+            style={{ backgroundColor: "#0092AE" }}
+            size="md"
+          />
           <p className="body-very-small font-semibold text-gray-900">
             Tutorial
           </p>

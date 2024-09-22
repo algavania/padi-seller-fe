@@ -10,12 +10,16 @@ import {
 import { ArrowCircleRight2 } from "iconsax-react";
 import { useOrder } from "@/context/OrderContext";
 import { Skeleton } from "@/components/ui/skeleton"; // Adjust this import based on your folder structure
+import { useState } from "react";
+import { fetchGPTResponse } from "@/api/gptApi"; 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function TodayTransactionCard() {
   const { orderStatus, loading } = useOrder();
   const colors = ["#F04438", "#FCFF46", "#0092AE", "#2970FF", "#12B76A"];
+  const [recommendation, setRecommendation] = useState("");
+  const [loadingRecommendation, setLoadingRecommendation] = useState(false);
 
   const data = {
     labels: orderStatus?.data.today.map((status) => status.status),
@@ -39,11 +43,26 @@ export default function TodayTransactionCard() {
       },
     },
   };
+
   const totalTransaction =
     orderStatus?.data.today?.reduce(
       (acc, curr) => acc + (curr.total || 0),
       0
     ) || 0;
+
+  const handleGPTRequest = async () => {
+    setLoadingRecommendation(true);
+    try {
+      const prompt = `Berikan saya analisis tentang data saya dan berikan rekomendasi untuk meningkatkan transaksi saya berdasarkan data (jelaskan dalam 1 dan maksimal 3 kalimat): ${JSON.stringify(orderStatus?.data.today)}`;
+      const response = await fetchGPTResponse(prompt);
+      setRecommendation(response);
+    } catch (error) {
+      console.error("Failed to fetch recommendation:", error);
+      setRecommendation("Failed to get a recommendation.");
+    } finally {
+      setLoadingRecommendation(false);
+    }
+  };
 
   return (
     <Card
@@ -58,12 +77,23 @@ export default function TodayTransactionCard() {
         </div>
       }
       footer={
-        <Button className="primary-color" block>
+        <Button 
+          className="primary-color" 
+          block 
+          onClick={handleGPTRequest}
+          disabled={loadingRecommendation}
+        >
           <div className="flex justify-center items-center w-full gap-3">
-            <p className="font-medium">
-              Rekomendasi untuk mengelola transaksi toko Anda
-            </p>
-            <ArrowCircleRight2 size="24" color="white" variant="Bold" />
+            {loadingRecommendation ? (
+              <span className="text-white">Loading...</span>
+            ) : (
+              <>
+                <p className="font-medium">
+                  Rekomendasi untuk mengelola transaksi toko Anda
+                </p>
+                <ArrowCircleRight2 size="24" color="white" variant="Bold" />
+              </>
+            )}
           </div>
         </Button>
       }
@@ -76,8 +106,6 @@ export default function TodayTransactionCard() {
       ) : (
         <div>
           <div className="relative flex justify-center items-center">
-            {" "}
-            {/* Position relative for absolute positioning */}
             <Doughnut data={data} options={options} />
             <div
               style={{ left: "9.6rem" }}
@@ -101,6 +129,9 @@ export default function TodayTransactionCard() {
               </p>
             </div>
           ))}
+          {recommendation && (
+            <div className="mt-4 text-gray-900">{recommendation}</div>
+          )}
         </div>
       )}
     </Card>

@@ -12,21 +12,23 @@ import {
 import { ArrowCircleRight2 } from "iconsax-react";
 import { useEffect, useState } from "react";
 import { useOrder } from "@/context/OrderContext";
-import { Skeleton } from "@/components/ui/skeleton"; // Adjust this import based on your folder structure
+import { Skeleton } from "@/components/ui/skeleton"; 
+import { fetchGPTResponse } from "@/api/gptApi";
+import moment from "moment";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 export default function TopCategoriesCard() {
-  const [recommendation, _] = useState("");
+  const [recommendation, setRecommendation] = useState("");
+  const [loadingRecommendation, setLoadingRecommendation] = useState(false);
   const { productTypeCount, loading, fetchProductTypeCount } = useOrder();
 
   useEffect(() => {
-    // const date = moment().format("YYYY-MM-DD");
-    const date = "2024-08-02";
+    const date = moment().format("YYYY-MM-DD");
+    // const date = "2024-08-02";
     fetchProductTypeCount(date);
   }, []);
 
-  // Prepare data for the chart
   const labels = productTypeCount?.data.map((item) => item.product_type) || [];
   const chartData = productTypeCount?.data.map((item) => item.jumlah) || [];
 
@@ -70,11 +72,27 @@ export default function TopCategoriesCard() {
       tooltip: {
         callbacks: {
           label: function (tooltipItem: any) {
-            return tooltipItem.dataset.label + ": " + tooltipItem.raw; // Customize tooltip label
+            return tooltipItem.dataset.label + ": " + tooltipItem.raw; 
           },
         },
       },
     },
+  };
+
+  const handleGPTRequest = async () => {
+    setLoadingRecommendation(true);
+    try {
+      const prompt = `Berikan saya analisis tentang data saya dan berdasarkan data produk yang banyak dibeli ini ${JSON.stringify(
+        productTypeCount?.data
+      )}, berikan rekomendasi cara pengelolaan produk di toko ini (jelaskan dalam 1 paragraf, maksimal 3 kalimat):`;
+      const response = await fetchGPTResponse(prompt);
+      setRecommendation(response);
+    } catch (error) {
+      console.error("Failed to fetch recommendation:", error);
+      setRecommendation("Failed to get a recommendation.");
+    } finally {
+      setLoadingRecommendation(false);
+    }
   };
 
   return (
@@ -91,12 +109,23 @@ export default function TopCategoriesCard() {
       }
       footer={
         <div>
-          <Button className="primary-color" block>
+          <Button
+            className="primary-color"
+            block
+            onClick={handleGPTRequest}
+            disabled={loadingRecommendation}
+          >
             <div className="flex justify-center items-center w-full gap-3">
-              <p className="font-medium">
-                Rekomendasi cara pengelolaan produk toko Anda
-              </p>
-              <ArrowCircleRight2 size="24" color="white" variant="Bold" />
+              {loadingRecommendation ? (
+                <span className="text-white">Loading...</span>
+              ) : (
+                <>
+                  <p className="font-medium">
+                    Rekomendasi cara pengelolaan produk toko Anda
+                  </p>
+                  <ArrowCircleRight2 size="24" color="white" variant="Bold" />
+                </>
+              )}
             </div>
           </Button>
 

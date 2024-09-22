@@ -4,13 +4,14 @@ import { useOrder } from "@/context/OrderContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Snackbar } from "@legion-ui/core";
 import { OrderTodayStatus } from "@/models/order";
+import moment from "moment";
 
 export default function OrderStatusSection() {
   const { orderStatus, loading, error, fetchOrderStatus } = useOrder();
 
   useEffect(() => {
-    // const date = moment().format("YYYY-MM-DD");
-    const date = "2024-08-02";
+    const date = moment().format("YYYY-MM-DD");
+    // const date = "2024-08-02";
     fetchOrderStatus(date);
   }, []);
   console.log('orderStatus', orderStatus);
