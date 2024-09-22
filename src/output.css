@@ -695,12 +695,12 @@ video {
   margin-top: 1.25rem;
 }
 
-.block {
-  display: block;
+.mt-6 {
+  margin-top: 1.5rem;
 }
 
-.inline {
-  display: inline;
+.block {
+  display: block;
 }
 
 .flex {
@@ -729,10 +729,6 @@ video {
 
 .h-20 {
   height: 5rem;
-}
-
-.h-3 {
-  height: 0.75rem;
 }
 
 .h-3\.5 {
@@ -796,12 +792,16 @@ video {
   width: 4rem;
 }
 
-.w-3 {
-  width: 0.75rem;
+.w-24 {
+  width: 6rem;
 }
 
 .w-3\.5 {
   width: 0.875rem;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .w-4 {
@@ -827,14 +827,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-24 {
-  width: 6rem;
-}
-
-.w-32 {
-  width: 8rem;
 }
 
 .min-w-0 {
@@ -1009,14 +1001,14 @@ video {
   border-color: rgb(208 213 221 / var(--tw-border-opacity));
 }
 
-.border-gray-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(177 181 186 / var(--tw-border-opacity));
-}
-
 .border-\[\#DCDFE3\] {
   --tw-border-opacity: 1;
   border-color: rgb(220 223 227 / var(--tw-border-opacity));
+}
+
+.border-gray-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(177 181 186 / var(--tw-border-opacity));
 }
 
 .bg-\[\#DFDEE3\] {
@@ -1054,11 +1046,6 @@ video {
   background-color: rgb(0 146 174 / var(--tw-bg-opacity));
 }
 
-.bg-red-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
-}
-
 .bg-success-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(209 250 223 / var(--tw-bg-opacity));
@@ -1069,22 +1056,16 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-\[\#0092AE\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 146 174 / var(--tw-bg-opacity));
-}
-
-.bg-\[\#FEEFC6\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 239 198 / var(--tw-bg-opacity));
-}
-
 .p-1 {
   padding: 0.25rem;
 }
 
 .p-2 {
   padding: 0.5rem;
+}
+
+.p-3 {
+  padding: 0.75rem;
 }
 
 .p-4 {
@@ -1240,16 +1221,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-blue-500 {
-  --tw-text-opacity: 1;
-  color: rgb(59 130 246 / var(--tw-text-opacity));
-}
-
-.text-\[\#F79009\] {
-  --tw-text-opacity: 1;
-  color: rgb(247 144 9 / var(--tw-text-opacity));
 }
 
 .underline-offset-4 {
