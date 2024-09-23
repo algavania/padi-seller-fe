@@ -7,6 +7,7 @@ import OrderStatusSection from "./components/order-status/OrderStatusSection";
 import StatisticsSection from "./components/statistics-section/StatisticsSection";
 import NewestTransactionSection from "./components/newest-transaction/NewestTransactionSection";
 import TodayTransactionSection from "./components/today-transaction/TodayTransactionSection";
+import Footer from "@/components/Footer";
 
 export default function DashboardPage() {
   return (
@@ -14,7 +15,7 @@ export default function DashboardPage() {
       <nav>
         <NavbarCore />
       </nav>
-      <div className="flex">
+      <div className="flex pb-10">
         <div className="w-sidebar">
           <Sidebar />
         </div>
@@ -36,6 +37,7 @@ export default function DashboardPage() {
           <div className="mt-5"></div>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

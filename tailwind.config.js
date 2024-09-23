@@ -80,6 +80,7 @@ export default {
       colors: colors,
       fontFamily: {
         nunitoSans: ['"Nunito Sans"', "sans-serif"],
+        ubuntu: ['"Ubuntu"', "sans-serif"],
       },
     },
   },

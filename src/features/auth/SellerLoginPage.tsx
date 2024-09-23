@@ -13,16 +13,15 @@ export default function SellerLoginPage() {
         "Invoice financing adalah solusi pembiayaan usaha yang diberikan kepada Seller PaDi UMKM dengan menggunakan invoice aktif atau belum jatuh tempo sebagai jaminan yang bermanfaat dalam memperlancar keuangan bisnis jangka pendek. Tunggu apa lagi?",
     },
     {
-      image: "/auth/seller1.svg",
-      title: "Dukung Usaha Anda dengan Invoice Financing!",
-      description:
-        "Invoice financing adalah solusi pembiayaan usaha yang diberikan kepada Seller PaDi UMKM dengan menggunakan invoice aktif atau belum jatuh tempo sebagai jaminan yang bermanfaat dalam memperlancar keuangan bisnis jangka pendek. Tunggu apa lagi?",
+      image: "/auth/carousel2.svg",
+      title: "Pasti Untung di PaDi UMKM",
+      description: "Berbagai promo dan penawaran terbaik setiap bulannya",
     },
     {
-      image: "/auth/seller1.svg",
-      title: "Dukung Usaha Anda dengan Invoice Financing!",
+      image: "/auth/seller3.svg",
+      title: "Terdapat Berbagai Pelatihan!",
       description:
-        "Invoice financing adalah solusi pembiayaan usaha yang diberikan kepada Seller PaDi UMKM dengan menggunakan invoice aktif atau belum jatuh tempo sebagai jaminan yang bermanfaat dalam memperlancar keuangan bisnis jangka pendek. Tunggu apa lagi?",
+        "Untuk menunjang kualitas seller, PaDi UMKM menyediakan pelatihan maupun sertifikasi secara rutin yang bisa diikuti.",
     },
   ];
 
@@ -83,7 +82,9 @@ export default function SellerLoginPage() {
           }
         />
 
-        {error && <p className="text-danger-500 mb-4 text-center w-full">{error}</p>}
+        {error && (
+          <p className="text-danger-500 mb-4 text-center w-full">{error}</p>
+        )}
 
         <Button
           className="primary-color"
