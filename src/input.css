@@ -8,42 +8,46 @@
 
 @layer utilities {
   .heading-1 {
-    @apply font-nunitoSans font-bold text-[4rem];
+    @apply font-nunitoSans font-bold text-[4rem] leading-[4.25rem];
   }
 
   .heading-2 {
-    @apply font-nunitoSans font-bold text-[3rem];
+    @apply font-nunitoSans font-bold text-[3rem] leading-[3.25rem];
   }
 
   .heading-3 {
-    @apply font-nunitoSans font-bold text-[2.5rem];
+    @apply font-nunitoSans font-bold text-[2.5rem] leading-[2.75rem];
   }
 
   .heading-4 {
-    @apply font-nunitoSans font-bold text-[2.25rem];
+    @apply font-nunitoSans font-bold text-[2.25rem] leading-[2.5rem];
   }
 
   .heading-5 {
-    @apply font-nunitoSans font-bold text-[2rem];
+    @apply font-nunitoSans font-bold text-[2rem] leading-[2.25rem];
   }
 
   .heading-6 {
-    @apply font-nunitoSans font-bold text-[1.5rem];
+    @apply font-nunitoSans font-bold text-[1.5rem] leading-[1.75rem];
+  }
+
+  .heading-7 {
+    @apply font-nunitoSans font-bold text-[1.3rem] leading-[1.5rem];
   }
 
   .body-large {
-    @apply font-nunitoSans text-[1.25rem];
+    @apply font-nunitoSans text-[1.25rem] leading-[1.6rem];
   }
 
   .body-medium {
-    @apply font-nunitoSans text-[1.1rem];
+    @apply font-nunitoSans text-[1.1rem] leading-[1.4rem];
   }
 
   .body-small {
-    @apply font-nunitoSans text-[1rem];
+    @apply font-nunitoSans text-[1rem] leading-[1.3rem];
   }
 
   .body-very-small {
-    @apply font-nunitoSans text-[0.9rem];
+    @apply font-nunitoSans text-[0.9rem] leading-[1.15rem];
   }
 }

@@ -8,8 +8,20 @@ import StatisticsSection from "./components/statistics-section/StatisticsSection
 import NewestTransactionSection from "./components/newest-transaction/NewestTransactionSection";
 import TodayTransactionSection from "./components/today-transaction/TodayTransactionSection";
 import Footer from "@/components/Footer";
+import { useState } from "react";
+import NewTransactionDialog from "./NewTransactionDialog";
 
 export default function DashboardPage() {
+  const [isDialogOpen, setIsDialogOpen] = useState(true);
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
   return (
     <main>
       <nav>
@@ -38,6 +50,8 @@ export default function DashboardPage() {
         </div>
       </div>
       <Footer />
+
+      <NewTransactionDialog isOpen={isDialogOpen} onClose={handleCloseDialog} />
     </main>
   );
 }

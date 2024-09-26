@@ -32,7 +32,7 @@ export default function StatisticsCard() {
   };
 
   return (
-    <Card bordered className="min-w-full h-fit">
+    <Card bordered className="w-full h-fit">
       {loading ? (
         <div className="p-4">
           <Skeleton className="h-6 mb-2" />
