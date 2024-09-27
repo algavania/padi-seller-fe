@@ -34,7 +34,7 @@ const TransactionDetailDialog: React.FC<TransactionDetailDialogProps> = ({
       open={isOpen}
       onOpenChange={onClose}
     >
-      <DialogContent className="bg-white max-w-full w-full sm:w-full md:w-1/2">
+      <DialogContent className="bg-white max-w-full rounded w-[80%] md:w-1/2">
         <DialogTitle>
           <p className="font-bold text-center">Detail Transaksi</p>
         </DialogTitle>

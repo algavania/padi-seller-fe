@@ -9,7 +9,7 @@ interface ChipProps {
 const Chip: React.FC<ChipProps> = ({ textColor, bgColor, label }) => {
   return (
     <div
-      className="font-semibold w-fit rounded-full py-1 px-2"
+      className="font-semibold w-fit rounded-full text-center py-1 px-2"
       style={{ color: textColor, backgroundColor: bgColor }}
     >
       {label}
