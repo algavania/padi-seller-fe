@@ -16,6 +16,10 @@ html, body {
   width: 15rem;
 }
 
+.margin-left-sidebar {
+  margin-left: 15rem;
+}
+
 .border-none {
   border: none!important;
 }

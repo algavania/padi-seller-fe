@@ -12,22 +12,29 @@ import { useState } from "react";
 import NewTransactionDialog from "./components/dialogs/NewTransactionDialog";
 
 export default function DashboardPage() {
-  const [isDialogOpen, setIsDialogOpen] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
   return (
     <main>
       <nav>
-        <NavbarCore />
+        <NavbarCore toggleSidebar={toggleSidebar} /> {/* Pass toggle function */}
       </nav>
-      <div className="flex pb-10">
-        <div className="w-sidebar">
-          <Sidebar />
+      <div className="flex pb-10 pt-2 mt-16">
+        <div className={`w-sidebar ${isSidebarOpen ? "block" : "hidden"} lg:block`}>
+          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /> {/* Pass props to Sidebar */}
         </div>
-        <div className="w-full px-16 md:px-12">
+        <div
+          className={`w-full px-6 lg:px-16 ml-0 lg:ml-8 md:px-12 transition-all duration-300`}
+        >
           <TopSection />
           <div className="mt-5"></div>
           <div className="flex flex-col md:flex-row gap-4 mb-5">
