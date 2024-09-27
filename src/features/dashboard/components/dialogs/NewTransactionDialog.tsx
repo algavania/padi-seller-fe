@@ -1,6 +1,6 @@
 // src/components/Dialog.tsx
 import React from 'react';
-import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogClose } from '@/components/ui/dialog';
 import { useOrder } from '@/context/OrderContext';
 
 interface MyDialogProps {

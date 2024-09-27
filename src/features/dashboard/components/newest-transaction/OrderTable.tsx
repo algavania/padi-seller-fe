@@ -1,9 +1,10 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { useOrder } from "@/context/OrderContext";
 import { formatRupiah } from "@/utils/currencyFormatter";
 import { Table } from "@legion-ui/core";
 import moment from "moment";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Chip from "../Chip";
+import TransactionDetailDialog from "../dialogs/TransactionDetailDialog";
 
 interface OrderTableProps {
   statusFilter: string | null;
@@ -12,10 +13,18 @@ interface OrderTableProps {
 
 export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
   const { orders, fetchOrders, loading } = useOrder();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<any>(null);
 
   useEffect(() => {
     fetchOrders();
   }, []);
+
+  const handleDetailClick = (order: any) => {
+    console.log("detail clicked", order);
+    setSelectedOrder(order);
+    setIsDialogOpen(true);
+  };
 
   const getStatusStyles = (status: string) => {
     switch (status) {
@@ -26,18 +35,18 @@ export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
         };
       case "Siap Dikirim":
         return {
-          textColor: "#D1FADF",
-          bgColor: "#FEEFC6",
+          textColor: "#257CFD",
+          bgColor: "#DCEAFF",
         };
       case "Siap Penagihan":
         return {
-          textColor: "#F04438",
-          bgColor: "#FEE4E2",
+          textColor: "#875BF7",
+          bgColor: "#ECE9FE",
         };
       case "Pesanan Baru":
         return {
-          textColor: "#1851A5",
-          bgColor: "#DCEAFF",
+          textColor: "#12B76A",
+          bgColor: "#D1FADF",
         };
       default:
         return {
@@ -63,24 +72,12 @@ export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
         <tbody>
           {Array.from({ length: 5 }).map((_, index) => (
             <tr key={index}>
-              <td>
-                <Skeleton className="h-4 w-24" />
-              </td>
-              <td>
-                <Skeleton className="h-4 w-32" />
-              </td>
-              <td>
-                <Skeleton className="h-4 w-32" />
-              </td>
-              <td>
-                <Skeleton className="h-4 w-24" />
-              </td>
-              <td>
-                <Skeleton className="h-4 w-24" />
-              </td>
-              <td>
-                <Skeleton className="h-4 w-16" />
-              </td>
+              <td>Loading...</td>
+              <td>Loading...</td>
+              <td>Loading...</td>
+              <td>Loading...</td>
+              <td>Loading...</td>
+              <td>Loading...</td>
             </tr>
           ))}
         </tbody>
@@ -88,54 +85,69 @@ export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
     );
   }
 
-  // Filter orders based on statusFilter
   const filteredOrders = statusFilter
     ? orders?.data.filter((order: any) => order.status.name === statusFilter)
     : orders?.data;
 
   return (
-    <Table hoverable>
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Pelanggan</th>
-          <th>Tanggal Waktu</th>
-          <th>Total Bayar</th>
-          <th>Status</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredOrders?.slice(0, limit || filteredOrders.length).map((order: any) => {
-          const { textColor, bgColor } = getStatusStyles(order.status.name);
+    <>
+      <Table hoverable>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Pelanggan</th>
+            <th>Tanggal Waktu</th>
+            <th>Total Bayar</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredOrders
+            ?.slice(0, limit || filteredOrders.length)
+            .map((order: any) => {
+              const { textColor, bgColor } = getStatusStyles(order.status.name);
+              console.log("order test ", order);
+              return (
+                <tr key={order._id} onClick={() => handleDetailClick(order)}>
+                  <td>{order.transaction_id}</td>
+                  <td>{order.buyer_name}</td>
+                  <td>
+                    {moment(order.createdAt).utc().format("D MMMM YYYY, HH:mm")}
+                  </td>
+                  <td>{formatRupiah(order.price_total)}</td>
+                  <td>
+                    <Chip
+                      label={order.status.name}
+                      bgColor={bgColor}
+                      textColor={textColor}
+                    />
+                  </td>
+                  <td>
+                    <div
+                      className="cursor-pointer border rounded-lg border-[#DCDFE3] p-1"
+                      onClick={() => handleDetailClick(order)}
+                    >
+                      <p className="body-very-small font-semibold text-[#667085] text-center">
+                        Detail
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </Table>
 
-          return (
-            <tr key={order._id}>
-              <td>{order.transaction_id}</td>
-              <td>{order.buyer_name}</td>
-              <td>
-                {moment(order.createdAt).utc().format("D MMMM YYYY, HH:mm")}
-              </td>
-              <td>{formatRupiah(order.price_total)}</td>
-              <td>
-                <div
-                  className="font-semibold w-fit rounded-full py-1 px-2"
-                  style={{ color: textColor, backgroundColor: bgColor }}
-                >
-                  {order.status.name}
-                </div>
-              </td>
-              <td>
-                <div className="cursor-pointer border rounded-lg border-[#DCDFE3] p-1">
-                  <p className="body-very-small font-semibold text-[#667085] text-center">
-                    Detail
-                  </p>
-                </div>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+      {selectedOrder != null && (
+        <TransactionDetailDialog
+          isOpen={isDialogOpen}
+          order={selectedOrder}
+          chipBg={getStatusStyles(selectedOrder.status.name).bgColor}
+          chipColor={getStatusStyles(selectedOrder.status.name).textColor}
+          onClose={() => setIsDialogOpen(false)}
+        />
+      )}
+    </>
   );
 }
