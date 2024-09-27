@@ -84,13 +84,17 @@ export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
     );
   }
 
-  const filteredOrders = statusFilter != null
-    ? orders?.data.filter((order: any) => order.status.name === statusFilter)
-    : orders?.data;
+  var filteredOrders = statusFilter != null
+  ? orders?.data.filter((order: any) => order.status.name === statusFilter)
+  : orders?.data;
+
+filteredOrders = filteredOrders?.sort((a: any, b: any) => {
+  return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+});
 
   return (
     <>
-      <div className="overflow-x-auto"> {/* Added container for horizontal scrolling */}
+      <div className="overflow-x-auto"> 
         <Table hoverable>
           <thead>
             <tr>
