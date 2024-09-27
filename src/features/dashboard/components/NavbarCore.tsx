@@ -1,8 +1,11 @@
-import { Avatar } from "@legion-ui/core";
+import { Avatar, Button } from "@legion-ui/core";
 import { Notification, Profile } from "iconsax-react";
 import { Mail } from "lucide-react";
+import * as Popover from "@radix-ui/react-popover";
+import { useAuth } from "@/context/AuthContext";
 
 export default function NavbarCore() {
+const { logoutUser } = useAuth();
   return (
     <div className="flex justify-center w-full items-center bg-white p-2 py-0 sticky top-0 z-10">
       <div className="flex justify-between items-center w-full px-6 md:container md:mx-auto">
@@ -26,11 +29,30 @@ export default function NavbarCore() {
             className="bg-[#DFDEE3]"
             style={{ width: "2px", height: "1.5rem" }}
           ></div>
-          <Avatar
-            style={{ backgroundColor: "#F2F2F2", cursor: "pointer" }}
-            icon={<Profile size="32" variant="Bold" color="#828282" />}
-            size="md"
-          />
+          <Popover.Root>
+            <Popover.Trigger asChild>
+              <Avatar
+                style={{ backgroundColor: "#F2F2F2", cursor: "pointer" }}
+                icon={<Profile size="32" variant="Bold" color="#828282" />}
+                size="md"
+              />
+            </Popover.Trigger>
+
+            <Popover.Portal>
+              <Popover.Content
+                className="rounded-md shadow-md bg-white p-3"
+                sideOffset={5}
+                align="end"
+              >
+                <div className="flex flex-col items-start">
+                  <Button onClick={logoutUser} color="error">
+                  Logout
+                  </Button>
+                </div>
+                <Popover.Arrow className="fill-white" />
+              </Popover.Content>
+            </Popover.Portal>
+          </Popover.Root>
         </div>
       </div>
     </div>
