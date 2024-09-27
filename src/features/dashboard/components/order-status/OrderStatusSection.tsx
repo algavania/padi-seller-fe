@@ -25,7 +25,7 @@ export default function OrderStatusSection() {
       </h3>
 
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
           {Array.from({ length: 4 }).map((_, index) => (
             <Skeleton key={index} className="h-20 w-full rounded-md" />
           ))}
@@ -33,7 +33,7 @@ export default function OrderStatusSection() {
       ) : error ? (
         <Snackbar message={error} />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
                     {orderStatus &&
             orderStatus.data.today.map((status: OrderTodayStatus) => (
               <OrderStatusItem

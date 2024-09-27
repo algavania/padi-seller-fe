@@ -43,6 +43,7 @@ export default function TopCategoriesCard() {
       },
     },
     responsive: true,
+    maintainAspectRatio: false, // Ensures chart adjusts with the width of the container
     plugins: {
       legend: {
         position: "right",
@@ -51,9 +52,14 @@ export default function TopCategoriesCard() {
       tooltip: {
         callbacks: {
           label: function (tooltipItem: any) {
-            return tooltipItem.dataset.label + ": " + tooltipItem.raw; 
+            return tooltipItem.dataset.label + ": " + tooltipItem.raw;
           },
         },
+      },
+    },
+    scales: {
+      x: {
+        beginAtZero: true,
       },
     },
   };
@@ -109,8 +115,10 @@ export default function TopCategoriesCard() {
           <Skeleton className="h-40" />
         </div>
       ) : (
-        <div className="p-4 flex justify-center">
-          <Bar data={data} options={options} />
+        <div className="p-4">
+          <div className="w-full h-96"> {/* Set full width and a fixed height for the chart */}
+            <Bar data={data} options={options} />
+          </div>
           {recommendation && (
             <div className="mt-4 text-gray-900">{recommendation}</div>
           )}

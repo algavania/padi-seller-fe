@@ -15,7 +15,7 @@ export default function SellerInfoCard() {
         <div className="flex flex-col w-full">
           {" "}
           {/* Ensure this div takes full width */}
-          <p className="body-small font-semibold">Nama Brand</p>
+          <p className="body-small font-semibold">34 Shop</p>
           <div className="flex items-center gap-2">
             <p className="text-sm md:text-base">Rating Toko</p>
             <Star size="20" variant="Bulk" color="#FBD882" />

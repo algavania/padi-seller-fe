@@ -1,7 +1,7 @@
 import { OpenAI } from "openai";
 
 const openai = new OpenAI({
-  apiKey: "",
+  apiKey: import.meta.env.VITE_REACT_APP_GPT_KEY as string,
   dangerouslyAllowBrowser: true,
 });
 

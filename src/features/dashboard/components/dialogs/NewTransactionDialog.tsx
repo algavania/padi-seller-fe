@@ -18,8 +18,8 @@ const NewTransactionDialog: React.FC<MyDialogProps> = ({ isOpen, onClose }) => {
         <DialogDescription>
           <div className='text-center'>
             <img alt="Cek Pesanan" className='flex justify-center items-center w-full object-contain' style={{height: "10rem",}} src="/dashboard/search.svg" />
-            <p className='heading-7 mt-4'>Segera Cek Pesanan Anda!</p>
-            <p className='my-4 heading-5 text-primary-500'>Ada {pesananBaruEntry?.total} pesanan yang harus segera diproses!</p>
+            <p className='font-bold text-lg mt-4'>Segera Cek Pesanan Anda!</p>
+            <p className='my-4 heading-6 text-primary-500'>Ada {pesananBaruEntry?.total} pesanan yang harus segera diproses!</p>
             <p className='body-medium'>Berikan pelayanan terbaikmu untuk meningkatkan kepuasan pelanggan dengan selalu mengecek status pesanan toko Anda!</p>
           </div>
         </DialogDescription>

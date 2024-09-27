@@ -5,11 +5,11 @@ import { ArrowCircleRight2 } from "iconsax-react";
 import { HelpCircle, MoveDown, MoveUp } from "lucide-react";
 import { useState } from "react";
 import OrderLineChart from "./OrderLineChart";
-import { fetchGPTResponse } from "@/api/gptApi"; 
+import { fetchGPTResponse } from "@/api/gptApi";
 
 export default function StatisticsCard() {
   const [recommendation, setRecommendation] = useState("");
-  const [loadingRecommendation, setLoadingRecommendation] = useState(false); 
+  const [loadingRecommendation, setLoadingRecommendation] = useState(false);
   const { orderStatus, loading } = useOrder();
   let previousDayComparison = orderStatus?.data.previousDayComparison || "0%";
   const isNegative = previousDayComparison.startsWith("-");
@@ -20,9 +20,11 @@ export default function StatisticsCard() {
   const handleGPTRequest = async () => {
     setLoadingRecommendation(true);
     try {
-      const prompt = `Berikan saya analisis tentang data saya dan berikan rekomendasi untuk meningkatkan penjualan saya berdasarkan data (jelaskan dalam 1 paragraf, maksimal 3 kalimat): ${JSON.stringify(orderStatus?.data.orders)}`;
-      const response = await fetchGPTResponse(prompt); 
-      setRecommendation(response); 
+      const prompt = `Berikan saya analisis tentang data saya dan berikan rekomendasi untuk meningkatkan penjualan saya berdasarkan data (jelaskan dalam 1 paragraf, maksimal 3 kalimat): ${JSON.stringify(
+        orderStatus?.data.orders
+      )}`;
+      const response = await fetchGPTResponse(prompt);
+      setRecommendation(response);
     } catch (error) {
       console.error("Failed to fetch recommendation:", error);
       setRecommendation("Failed to get a recommendation.");
@@ -78,12 +80,10 @@ export default function StatisticsCard() {
                     isNegative ? "text-danger-500" : "text-success-100"
                   }`}
                 >
-                  {previousDayComparison}
+                  {parseFloat(previousDayComparison).toString()}%
                 </p>
               </div>
-              <p className="text-gray-500 body-very-small">
-                dari hari kemarin
-              </p>
+              <p className="text-gray-500 body-very-small">dari hari kemarin</p>
             </div>
           </div>
           <div className="col-span-1 md:col-span-4">

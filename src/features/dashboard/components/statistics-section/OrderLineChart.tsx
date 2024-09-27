@@ -31,6 +31,7 @@ const OrderLineChart: React.FC<OrderLineChartProps> = ({ orders }) => {
   if (orders === undefined) {
     return <div></div>;
   }
+  
   const labels = orders.map((order) => order.date);
   const dataValues = orders.map((order) => order.value);
 
@@ -50,6 +51,7 @@ const OrderLineChart: React.FC<OrderLineChartProps> = ({ orders }) => {
 
   const options: ChartOptions<"line"> = {
     responsive: true,
+    maintainAspectRatio: false, // Allows chart to take full width and custom height
     plugins: {
       legend: {
         display: false,
@@ -90,10 +92,9 @@ const OrderLineChart: React.FC<OrderLineChartProps> = ({ orders }) => {
       },
     },
   };
+
   return (
-    <div style={{ height: "7rem", width: "100%" }}>
-      {" "}
-      {/* Set height here */}
+    <div className="mt-0 sm:mt-4 md:mt-0" style={{ height: "7rem", width: "100%" }}> {/* Full width and set height */}
       <Line data={data} options={options} />
     </div>
   );

@@ -11,7 +11,7 @@ export default function NewestTransactionSection() {
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8"> {/* Add padding for responsiveness */}
+    <div>
       <h2 className="heading-6 md:text-left">Transaksi Terbaru</h2>
       <h3 className="body-small mt-3 md:text-left">
         Pantau status pesananmu melalui tabel di bawah ini

@@ -42,6 +42,7 @@ export default function TodayTransactionCard() {
         align: "center",
       },
     },
+    maintainAspectRatio: false, // Ensures the chart adjusts to container width
   };
 
   const totalTransaction =
@@ -106,11 +107,15 @@ export default function TodayTransactionCard() {
         </div>
       ) : (
         <div className="p-4">
-          <div className="relative flex justify-center items-center">
+          <div className="relative flex justify-center items-center w-full h-72"> 
             <Doughnut data={data} options={options} />
             <div
               className="absolute flex flex-col justify-center items-center"
-              style={{ left: "9.6rem" }}
+              style={{
+                top: "50%", 
+                left: "10.3rem", 
+                transform: "translate(-50%, -50%)",
+              }}
             >
               <p className="body-large text-[#667085]">Total Transaksi</p>
               <p className="heading-4">{totalTransaction}</p>

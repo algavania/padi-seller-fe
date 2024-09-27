@@ -88,7 +88,7 @@ export default function RevenueStatisticsCard() {
                       isNegative ? "text-danger-500" : "text-success-100"
                     }`}
                   >
-                    {previousDayComparison}
+                    {parseFloat(previousDayComparison).toString()}%
                   </p>
                 </div>
                 <p className="text-gray-500 body-very-small">

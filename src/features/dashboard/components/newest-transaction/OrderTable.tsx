@@ -84,7 +84,7 @@ export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
     );
   }
 
-  const filteredOrders = statusFilter
+  const filteredOrders = statusFilter != null
     ? orders?.data.filter((order: any) => order.status.name === statusFilter)
     : orders?.data;
 
@@ -103,41 +103,49 @@ export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
             </tr>
           </thead>
           <tbody>
-            {filteredOrders
-              ?.slice(0, limit || filteredOrders.length)
-              .map((order: any) => {
-                const { textColor, bgColor } = getStatusStyles(order.status.name);
-                return (
-                  <tr key={order._id} onClick={() => handleDetailClick(order)}>
-                    <td>{order.transaction_id}</td>
-                    <td>{order.buyer_name}</td>
-                    <td>
-                      {moment(order.createdAt).utc().format("D MMMM YYYY, HH:mm")}
-                    </td>
-                    <td>{formatRupiah(order.price_total)}</td>
-                    <td>
-                      <Chip
-                        label={order.status.name}
-                        bgColor={bgColor}
-                        textColor={textColor}
-                      />
-                    </td>
-                    <td>
-                      <div
-                        className="cursor-pointer border rounded-lg border-[#DCDFE3] p-1"
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent the row click event
-                          handleDetailClick(order);
-                        }}
-                      >
-                        <p className="body-very-small font-semibold text-[#667085] text-center">
-                          Detail
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+            {filteredOrders && filteredOrders.length > 0 ? (
+              filteredOrders
+                .slice(0, limit || filteredOrders.length)
+                .map((order: any) => {
+                  const { textColor, bgColor } = getStatusStyles(order.status.name);
+                  return (
+                    <tr key={order._id} onClick={() => handleDetailClick(order)}>
+                      <td>{order.transaction_id}</td>
+                      <td>{order.buyer_name}</td>
+                      <td>
+                        {moment(order.createdAt).utc().format("D MMMM YYYY, HH:mm")}
+                      </td>
+                      <td>{formatRupiah(order.price_total)}</td>
+                      <td>
+                        <Chip
+                          label={order.status.name}
+                          bgColor={bgColor}
+                          textColor={textColor}
+                        />
+                      </td>
+                      <td>
+                        <div
+                          className="cursor-pointer border rounded-lg border-[#DCDFE3] p-1"
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent the row click event
+                            handleDetailClick(order);
+                          }}
+                        >
+                          <p className="body-very-small font-semibold text-[#667085] text-center">
+                            Detail
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+            ) : (
+              <tr>
+                <td colSpan={6} className="text-center py-4 text-gray-500">
+                  Tidak ada data
+                </td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </div>
