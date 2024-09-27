@@ -2024,6 +2024,10 @@ html, body {
     margin-left: 0.75rem;
   }
 
+  .md\:block {
+    display: block;
+  }
+
   .md\:flex {
     display: flex;
   }

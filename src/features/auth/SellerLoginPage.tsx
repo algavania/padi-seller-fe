@@ -37,7 +37,7 @@ export default function SellerLoginPage() {
 
   return (
     <div className="bg-primary-500 min-h-screen px-4 py-8 md:px-12 md:py-0 grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-8">
-      <div className="w-full mx-auto px-12 mb-8 md:mb-0">
+      <div className="w-full mx-auto px-12 mb-8 md:mb-0 hidden md:block">
         <CarouselComponent items={carousels} />
       </div>
 
