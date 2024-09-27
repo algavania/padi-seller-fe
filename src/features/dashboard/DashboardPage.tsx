@@ -27,7 +27,7 @@ export default function DashboardPage() {
         <div className="w-sidebar">
           <Sidebar />
         </div>
-        <div className="w-full px-12">
+        <div className="w-full px-16 md:px-12">
           <TopSection />
           <div className="mt-5"></div>
           <div className="flex flex-col md:flex-row gap-4 mb-5">
