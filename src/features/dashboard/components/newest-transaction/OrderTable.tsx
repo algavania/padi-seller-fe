@@ -27,7 +27,7 @@ export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
 
   const getStatusStyles = (status: string) => {
     switch (status) {
-      case "Diproses Penjual":
+      case "Diproses":
         return {
           textColor: "#F79009",
           bgColor: "#FEEFC6",

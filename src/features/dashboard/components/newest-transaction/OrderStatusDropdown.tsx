@@ -29,7 +29,7 @@ export default function OrderStatusDropdown({ onChange }: OrderStatusDropdownPro
         <SelectContent side="bottom">
           <SelectItem value="Semua">Semua</SelectItem>
           <SelectItem value="Pesanan Baru">Pesanan Baru</SelectItem>
-          <SelectItem value="Diproses Penjual">Diproses Penjual</SelectItem>
+          <SelectItem value="Diproses">Diproses</SelectItem>
           <SelectItem value="Siap Penagihan">Siap Penagihan</SelectItem>
           <SelectItem value="Siap Dikirim">Siap Dikirim</SelectItem>
         </SelectContent>
