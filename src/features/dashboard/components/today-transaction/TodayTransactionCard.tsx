@@ -6,6 +6,7 @@ import {
   Tooltip,
   Legend,
   ChartOptions,
+  Plugin,
 } from "chart.js";
 import { ArrowCircleRight2 } from "iconsax-react";
 import { useOrder } from "@/context/OrderContext";
@@ -21,6 +22,32 @@ export default function TodayTransactionCard() {
   const [recommendation, setRecommendation] = useState("");
   const [loadingRecommendation, setLoadingRecommendation] = useState(false);
 
+  const totalTransaction =
+    orderStatus?.data.today?.reduce(
+      (acc, curr) => acc + (curr.total || 0),
+      0
+    ) || 0;
+
+  // Custom plugin to add text to the center of the doughnut chart
+  const centerTextPlugin: Plugin<"doughnut"> = {
+    id: "centerText",
+    afterDraw(chart) {
+      const { ctx, chartArea } = chart;
+
+      ctx.save();
+      ctx.font = `bold 1.5rem Nunito Sans`;
+      ctx.fillStyle = "#000";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      const centerX = (chartArea.left + chartArea.right) / 2;
+      const centerY = (chartArea.top + chartArea.bottom) / 2;
+
+      ctx.fillText(`${totalTransaction} Transaksi`, centerX, centerY);
+      ctx.restore();
+    },
+  };
+
   const data = {
     labels: orderStatus?.data.today.map((status) => status.status),
     datasets: [
@@ -35,7 +62,7 @@ export default function TodayTransactionCard() {
   };
 
   const options: ChartOptions<"doughnut"> = {
-    cutout: "80%",
+    cutout: "80%", // Size of the hole in the middle
     plugins: {
       legend: {
         position: "right",
@@ -44,12 +71,6 @@ export default function TodayTransactionCard() {
     },
     maintainAspectRatio: false, // Ensures the chart adjusts to container width
   };
-
-  const totalTransaction =
-    orderStatus?.data.today?.reduce(
-      (acc, curr) => acc + (curr.total || 0),
-      0
-    ) || 0;
 
   const handleGPTRequest = async () => {
     setLoadingRecommendation(true);
@@ -107,19 +128,8 @@ export default function TodayTransactionCard() {
         </div>
       ) : (
         <div className="p-4">
-          <div className="relative flex justify-center items-center w-full h-72"> 
-            <Doughnut data={data} options={options} />
-            <div
-              className="absolute flex flex-col justify-center items-center"
-              style={{
-                top: "50%", 
-                left: "10.3rem", 
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              <p className="body-large text-[#667085]">Total Transaksi</p>
-              <p className="heading-4">{totalTransaction}</p>
-            </div>
+          <div className="relative flex justify-center items-center w-full h-72">
+            <Doughnut data={data} options={options} plugins={[centerTextPlugin]} />
           </div>
           {orderStatus?.data.today.map((status, index) => (
             <div key={status.status} className="flex justify-between mt-3">

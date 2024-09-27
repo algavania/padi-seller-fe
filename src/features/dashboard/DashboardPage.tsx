@@ -38,7 +38,7 @@ export default function DashboardPage() {
           <TopSection />
           <div className="mt-5"></div>
           <div className="flex flex-col md:flex-row gap-4 mb-5">
-            <div className="w-full md:w-2/3 flex flex-col gap-5">
+            <div className="w-full md:w-2/3 flex flex-col gap-8">
               <SellerInfoCard />
               <OrderStatusSection />
             </div>
@@ -48,12 +48,14 @@ export default function DashboardPage() {
             </div>
           </div>
 
+          <div className="mt-8"></div>
+
           <StatisticsSection />
-          <div className="mt-5"></div>
+          <div className="mt-8"></div>
           <NewestTransactionSection />
-          <div className="mt-5"></div>
+          <div className="mt-8"></div>
           <TodayTransactionSection />
-          <div className="mt-5"></div>
+          <div className="mt-8"></div>
         </div>
       </div>
       <Footer />
