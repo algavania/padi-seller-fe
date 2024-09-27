@@ -82,7 +82,7 @@ export default function StatisticsCard() {
                 </p>
               </div>
               <p className="text-gray-500 body-very-small">
-                dari minggu kemarin
+                dari hari kemarin
               </p>
             </div>
           </div>
