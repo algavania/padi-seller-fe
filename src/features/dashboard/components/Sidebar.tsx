@@ -51,7 +51,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
           <div className="flex gap-3 justify-start items-center">
             <Avatar style={{ backgroundColor: "#0092AE" }} size="md" />
             <p className="body-very-small font-semibold text-gray-900">
-              34 Shop
+              24 Shop
             </p>
           </div>
         </div>
