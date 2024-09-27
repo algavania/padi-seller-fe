@@ -14,8 +14,10 @@ export default function OrderStatusSection() {
     // const date = "2024-08-02";
     fetchOrderStatus(date);
   }, []);
-  console.log('orderStatus', orderStatus);
-
+  const filteredStatus = orderStatus?.data.today.sort((a: any, b: any) => {
+    return a.id - b.id;
+  });
+  
   return (
     <div>
       <h2 className="heading-6">Jumlah Pesanan Per Status</h2>
@@ -34,8 +36,8 @@ export default function OrderStatusSection() {
         <Snackbar message={error} />
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
-                    {orderStatus &&
-            orderStatus.data.today.map((status: OrderTodayStatus) => (
+                    {filteredStatus &&
+            filteredStatus.map((status: OrderTodayStatus) => (
               <OrderStatusItem
                 key={status.id}
                 title={status.status}
