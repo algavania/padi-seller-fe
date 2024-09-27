@@ -36,14 +36,15 @@ export default function SellerLoginPage() {
   };
 
   return (
-    <div className="bg-primary-500 min-h-screen grid grid-cols-2 items-center justify-center gap-12 px-12">
-      <div className="mx-auto px-12">
+    <div className="bg-primary-500 min-h-screen px-4 py-8 md:px-12 md:py-0 grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-8">
+      <div className="w-full mx-auto px-12 mb-8 md:mb-0">
         <CarouselComponent items={carousels} />
       </div>
-      <Card bordered className="px-8 py-4">
+
+      <Card bordered className="w-full px-6 py-4 md:px-8 md:py-6">
         <div className="flex w-full justify-between items-center mb-5">
           <h2 className="body-large text-black font-semibold">Login Sebagai</h2>
-          <img src="/logo.svg" alt="Logo" />
+          <img src="/logo.svg" alt="Logo" className="w-20 md:w-24" />
         </div>
 
         <Textfield
