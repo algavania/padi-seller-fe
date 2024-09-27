@@ -22,11 +22,24 @@ export default function TodayTransactionCard() {
   const [recommendation, setRecommendation] = useState("");
   const [loadingRecommendation, setLoadingRecommendation] = useState(false);
 
-  const totalTransaction =
-    orderStatus?.data.today?.reduce(
-      (acc, curr) => acc + (curr.total || 0),
-      0
-    ) || 0;
+  const data = {
+    labels: orderStatus?.data.today.map((status) => status.status),
+    datasets: [
+      {
+        label: "Total",
+        data: orderStatus?.data.today.map((status) => status.total),
+        backgroundColor: colors,
+        borderColor: ["#F2F4F7", "#F2F4F7", "#F2F4F7", "#F2F4F7", "#F2F4F7"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  // Calculate total transaction based on the chart data
+  // const totalTransaction = data.datasets[0]?.data?.reduce(
+  //   (acc, curr) => acc + (curr || 0),
+  //   0
+  // ) || 0;
 
   // Custom plugin to add text to the center of the doughnut chart
   const centerTextPlugin: Plugin<"doughnut"> = {
@@ -43,33 +56,20 @@ export default function TodayTransactionCard() {
       const centerX = (chartArea.left + chartArea.right) / 2;
       const centerY = (chartArea.top + chartArea.bottom) / 2;
 
-      ctx.fillText(`${totalTransaction} Transaksi`, centerX, centerY);
+      ctx.fillText(`Transaksi`, centerX, centerY);
       ctx.restore();
     },
   };
 
-  const data = {
-    labels: orderStatus?.data.today.map((status) => status.status),
-    datasets: [
-      {
-        label: "Total",
-        data: orderStatus?.data.today.map((status) => status.total),
-        backgroundColor: colors,
-        borderColor: ["#F2F4F7", "#F2F4F7", "#F2F4F7", "#F2F4F7", "#F2F4F7"],
-        borderWidth: 1,
-      },
-    ],
-  };
-
   const options: ChartOptions<"doughnut"> = {
-    cutout: "80%", // Size of the hole in the middle
+    cutout: "80%",
     plugins: {
       legend: {
         position: "right",
         align: "center",
       },
     },
-    maintainAspectRatio: false, // Ensures the chart adjusts to container width
+    maintainAspectRatio: false, 
   };
 
   const handleGPTRequest = async () => {
