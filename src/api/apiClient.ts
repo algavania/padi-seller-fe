@@ -7,4 +7,18 @@ const apiClient = axios.create({
   },
 });
 
+apiClient.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.clear();  
+      
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 export default apiClient;

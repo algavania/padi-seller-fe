@@ -10,6 +10,7 @@ import {
   ProductTypeCountResponse,
   RevenueResponse,
 } from "@/models/order";
+import moment from "moment";
 
 type OrderContextType = {
   orders: any | null;
@@ -18,6 +19,7 @@ type OrderContextType = {
   revenue: RevenueResponse | null;
   loading: boolean;
   error: string | null;
+  updatedAt: string | null;
   fetchOrders: () => Promise<void>;
   fetchOrderStatus: (date: string) => Promise<void>;
   fetchProductTypeCount: (date: string) => Promise<void>;
@@ -36,6 +38,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const [revenue, setRevenue] = useState<RevenueResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [updatedAt, setUpdatedAt] = useState<string | null>(null);
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -43,6 +46,8 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await getAllOrders();
       console.log('response orders',response);
+      const date = moment().format("DD MMMM YYYY, HH:mm");
+      setUpdatedAt(date);
       setOrders(response);
     } catch (err) {
       setError("Failed to fetch orders");
@@ -99,6 +104,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         revenue,
         loading,
         error,
+        updatedAt,
         fetchOrders,
         fetchOrderStatus,
         fetchProductTypeCount,

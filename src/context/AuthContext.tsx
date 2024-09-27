@@ -61,10 +61,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const logoutUser = () => {
-    logout(); 
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userEmail");
+  const logoutUser = async () => {
+    console.log('logout');
+    try {
+      await logout();
+    } catch (_) {}
+    localStorage.clear();
+    console.log('logout 2');
     setIsAuthenticated(false);
     setUser(null);
   };

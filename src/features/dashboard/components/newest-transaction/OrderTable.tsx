@@ -5,8 +5,14 @@ import { Table } from "@legion-ui/core";
 import moment from "moment";
 import { useEffect } from "react";
 
-export default function OrderTable() {
+interface OrderTableProps {
+  statusFilter: string | null;
+  limit?: number;
+}
+
+export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
   const { orders, fetchOrders, loading } = useOrder();
+
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -82,6 +88,11 @@ export default function OrderTable() {
     );
   }
 
+  // Filter orders based on statusFilter
+  const filteredOrders = statusFilter
+    ? orders?.data.filter((order: any) => order.status.name === statusFilter)
+    : orders?.data;
+
   return (
     <Table hoverable>
       <thead>
@@ -95,8 +106,8 @@ export default function OrderTable() {
         </tr>
       </thead>
       <tbody>
-        {orders?.data.slice(0, 5).map((order: any) => {
-          const { textColor, bgColor } = getStatusStyles(order.status.name); // Get styles based on status
+        {filteredOrders?.slice(0, limit || filteredOrders.length).map((order: any) => {
+          const { textColor, bgColor } = getStatusStyles(order.status.name);
 
           return (
             <tr key={order._id}>
