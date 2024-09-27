@@ -30,13 +30,17 @@ export default function DashboardPage() {
         <div className="w-full px-12">
           <TopSection />
           <div className="mt-5"></div>
-          <div className="flex gap-4 mb-5">
-            <div className="w-full flex flex-col gap-5">
+          <div className="flex flex-col md:flex-row gap-4 mb-5">
+            <div className="w-full md:w-2/3 flex flex-col gap-5">
               <SellerInfoCard />
               <OrderStatusSection />
             </div>
-            <ImportantInfoCard />
+
+            <div className="w-full md:w-1/3">
+              <ImportantInfoCard />
+            </div>
           </div>
+
           <StatisticsSection />
           <div className="mt-5"></div>
           <NewestTransactionSection />

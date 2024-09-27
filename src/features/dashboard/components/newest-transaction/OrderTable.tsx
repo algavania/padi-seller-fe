@@ -21,7 +21,6 @@ export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
   }, []);
 
   const handleDetailClick = (order: any) => {
-    console.log("detail clicked", order);
     setSelectedOrder(order);
     setIsDialogOpen(true);
   };
@@ -91,53 +90,57 @@ export default function OrderTable({ statusFilter, limit }: OrderTableProps) {
 
   return (
     <>
-      <Table hoverable>
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Pelanggan</th>
-            <th>Tanggal Waktu</th>
-            <th>Total Bayar</th>
-            <th>Status</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredOrders
-            ?.slice(0, limit || filteredOrders.length)
-            .map((order: any) => {
-              const { textColor, bgColor } = getStatusStyles(order.status.name);
-              console.log("order test ", order);
-              return (
-                <tr key={order._id} onClick={() => handleDetailClick(order)}>
-                  <td>{order.transaction_id}</td>
-                  <td>{order.buyer_name}</td>
-                  <td>
-                    {moment(order.createdAt).utc().format("D MMMM YYYY, HH:mm")}
-                  </td>
-                  <td>{formatRupiah(order.price_total)}</td>
-                  <td>
-                    <Chip
-                      label={order.status.name}
-                      bgColor={bgColor}
-                      textColor={textColor}
-                    />
-                  </td>
-                  <td>
-                    <div
-                      className="cursor-pointer border rounded-lg border-[#DCDFE3] p-1"
-                      onClick={() => handleDetailClick(order)}
-                    >
-                      <p className="body-very-small font-semibold text-[#667085] text-center">
-                        Detail
-                      </p>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </Table>
+      <div className="overflow-x-auto"> {/* Added container for horizontal scrolling */}
+        <Table hoverable>
+          <thead>
+            <tr>
+              <th className="text-left">Order ID</th>
+              <th className="text-left">Pelanggan</th>
+              <th className="text-left">Tanggal Waktu</th>
+              <th className="text-left">Total Bayar</th>
+              <th className="text-left">Status</th>
+              <th className="text-left">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredOrders
+              ?.slice(0, limit || filteredOrders.length)
+              .map((order: any) => {
+                const { textColor, bgColor } = getStatusStyles(order.status.name);
+                return (
+                  <tr key={order._id} onClick={() => handleDetailClick(order)}>
+                    <td>{order.transaction_id}</td>
+                    <td>{order.buyer_name}</td>
+                    <td>
+                      {moment(order.createdAt).utc().format("D MMMM YYYY, HH:mm")}
+                    </td>
+                    <td>{formatRupiah(order.price_total)}</td>
+                    <td>
+                      <Chip
+                        label={order.status.name}
+                        bgColor={bgColor}
+                        textColor={textColor}
+                      />
+                    </td>
+                    <td>
+                      <div
+                        className="cursor-pointer border rounded-lg border-[#DCDFE3] p-1"
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent the row click event
+                          handleDetailClick(order);
+                        }}
+                      >
+                        <p className="body-very-small font-semibold text-[#667085] text-center">
+                          Detail
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </Table>
+      </div>
 
       {selectedOrder != null && (
         <TransactionDetailDialog

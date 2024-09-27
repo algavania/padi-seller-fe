@@ -1,14 +1,6 @@
 import { Button, Card } from "@legion-ui/core";
 import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Tooltip,
-  Legend,
-  ChartOptions,
-} from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartOptions } from "chart.js";
 import { ArrowCircleRight2 } from "iconsax-react";
 import { useEffect, useState } from "react";
 import { useOrder } from "@/context/OrderContext";
@@ -25,7 +17,6 @@ export default function TopCategoriesCard() {
 
   useEffect(() => {
     const date = moment().format("YYYY-MM-DD");
-    // const date = "2024-08-02";
     fetchProductTypeCount(date);
   }, []);
 
@@ -38,20 +29,8 @@ export default function TopCategoriesCard() {
       {
         label: "Total",
         data: chartData.length > 0 ? chartData : [0],
-        backgroundColor: [
-          "#0092AE",
-          "#0092AE",
-          "#0092AE",
-          "#0092AE",
-          "#0092AE",
-        ],
-        borderColor: [
-          "#0092AE",
-          "#0092AE",
-          "#0092AE",
-          "#0092AE",
-          "#0092AE",
-        ],
+        backgroundColor: ["#0092AE", "#0092AE", "#0092AE", "#0092AE", "#0092AE"],
+        borderColor: ["#0092AE", "#0092AE", "#0092AE", "#0092AE", "#0092AE"],
       },
     ],
   };
@@ -82,9 +61,7 @@ export default function TopCategoriesCard() {
   const handleGPTRequest = async () => {
     setLoadingRecommendation(true);
     try {
-      const prompt = `Berikan saya analisis tentang data saya dan berdasarkan data produk yang banyak dibeli ini ${JSON.stringify(
-        productTypeCount?.data
-      )}, berikan rekomendasi cara pengelolaan produk di toko ini (jelaskan dalam 1 paragraf, maksimal 3 kalimat):`;
+      const prompt = `Berikan saya analisis tentang data saya dan berdasarkan data produk yang banyak dibeli ini ${JSON.stringify(productTypeCount?.data)}, berikan rekomendasi cara pengelolaan produk di toko ini (jelaskan dalam 1 paragraf, maksimal 3 kalimat):`;
       const response = await fetchGPTResponse(prompt);
       setRecommendation(response);
     } catch (error) {
@@ -102,9 +79,7 @@ export default function TopCategoriesCard() {
       header={
         <div>
           <p className="font-bold body-medium">Top 5 Kategori Produk</p>
-          <p className="text-[#86909C] body-very-small">
-            5 produk yang banyak dibeli oleh pelanggan
-          </p>
+          <p className="text-[#86909C] body-very-small">5 produk yang banyak dibeli oleh pelanggan</p>
         </div>
       }
       footer={
@@ -120,25 +95,26 @@ export default function TopCategoriesCard() {
                 <span className="text-white">Loading...</span>
               ) : (
                 <>
-                  <p className="font-medium">
-                    Rekomendasi cara pengelolaan produk toko Anda
-                  </p>
+                  <p className="font-medium">Rekomendasi cara pengelolaan produk</p>
                   <ArrowCircleRight2 size="24" color="white" variant="Bold" />
                 </>
               )}
             </div>
           </Button>
-
-          {recommendation && <p className="mt-3">{recommendation}</p>}
         </div>
       }
     >
       {loading ? (
         <div className="p-4">
-          <Skeleton className="h-40" /> {/* Adjust height based on your design */}
+          <Skeleton className="h-40" />
         </div>
       ) : (
-        <Bar data={data} options={options} />
+        <div className="p-4 flex justify-center">
+          <Bar data={data} options={options} />
+          {recommendation && (
+            <div className="mt-4 text-gray-900">{recommendation}</div>
+          )}
+        </div>
       )}
     </Card>
   );

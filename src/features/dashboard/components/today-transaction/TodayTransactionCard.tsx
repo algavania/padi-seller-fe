@@ -9,9 +9,9 @@ import {
 } from "chart.js";
 import { ArrowCircleRight2 } from "iconsax-react";
 import { useOrder } from "@/context/OrderContext";
-import { Skeleton } from "@/components/ui/skeleton"; // Adjust this import based on your folder structure
+import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
-import { fetchGPTResponse } from "@/api/gptApi"; 
+import { fetchGPTResponse } from "@/api/gptApi";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -26,7 +26,7 @@ export default function TodayTransactionCard() {
     datasets: [
       {
         label: "Total",
-        data: orderStatus?.data.today.map((status) => status.total), 
+        data: orderStatus?.data.today.map((status) => status.total),
         backgroundColor: colors,
         borderColor: ["#F2F4F7", "#F2F4F7", "#F2F4F7", "#F2F4F7", "#F2F4F7"],
         borderWidth: 1,
@@ -53,7 +53,9 @@ export default function TodayTransactionCard() {
   const handleGPTRequest = async () => {
     setLoadingRecommendation(true);
     try {
-      const prompt = `Berikan saya analisis tentang data saya dan berikan rekomendasi untuk meningkatkan transaksi saya berdasarkan data (jelaskan dalam 1 dan maksimal 3 kalimat): ${JSON.stringify(orderStatus?.data.today)}`;
+      const prompt = `Berikan saya analisis tentang data saya dan berikan rekomendasi untuk meningkatkan transaksi saya berdasarkan data (jelaskan dalam 1 dan maksimal 3 kalimat): ${JSON.stringify(
+        orderStatus?.data.today
+      )}`;
       const response = await fetchGPTResponse(prompt);
       setRecommendation(response);
     } catch (error) {
@@ -66,7 +68,7 @@ export default function TodayTransactionCard() {
 
   return (
     <Card
-      className="w-full"
+      className="w-full h-fit"
       bordered
       header={
         <div>
@@ -77,9 +79,9 @@ export default function TodayTransactionCard() {
         </div>
       }
       footer={
-        <Button 
-          className="primary-color" 
-          block 
+        <Button
+          className="primary-color"
+          block
           onClick={handleGPTRequest}
           disabled={loadingRecommendation}
         >
@@ -100,16 +102,15 @@ export default function TodayTransactionCard() {
     >
       {loading ? (
         <div className="p-4">
-          <Skeleton className="h-40" />{" "}
-          {/* Adjust height based on your design */}
+          <Skeleton className="h-40" />
         </div>
       ) : (
-        <div>
+        <div className="p-4">
           <div className="relative flex justify-center items-center">
             <Doughnut data={data} options={options} />
             <div
-              style={{ left: "9.6rem" }}
               className="absolute flex flex-col justify-center items-center"
+              style={{ left: "9.6rem" }}
             >
               <p className="body-large text-[#667085]">Total Transaksi</p>
               <p className="heading-4">{totalTransaction}</p>
@@ -120,7 +121,7 @@ export default function TodayTransactionCard() {
               <div className="flex gap-3 justify-start items-center">
                 <div
                   className="w-4 h-4 rounded-full"
-                  style={{ backgroundColor: colors[index] }} 
+                  style={{ backgroundColor: colors[index] }}
                 ></div>
                 <p className="body-medium">{status.status}</p>
               </div>

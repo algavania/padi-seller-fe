@@ -16,7 +16,6 @@ export default function RevenueStatisticsCard() {
 
   useEffect(() => {
     const date = moment().format("YYYY-MM-DD");
-    // const date = "2024-08-02";
     fetchRevenue(date);
   }, []);
 
@@ -51,8 +50,8 @@ export default function RevenueStatisticsCard() {
           <Skeleton className="h-4" />
         </div>
       ) : (
-        <div className="grid grid-cols-7">
-          <div className="col-span-3">
+        <div className="grid grid-cols-1 sm:grid-cols-7">
+          <div className="col-span-1 sm:col-span-3">
             <div className="h-full flex flex-col justify-between">
               <div>
                 <div className="flex justify-start items-center gap-3">
@@ -98,7 +97,7 @@ export default function RevenueStatisticsCard() {
               </div>
             </div>
           </div>
-          <div className="col-span-4 ">
+          <div className="col-span-1 sm:col-span-4 ">
             <OrderLineChart orders={revenue?.data.revenues} />
           </div>
         </div>
@@ -115,7 +114,7 @@ export default function RevenueStatisticsCard() {
             <span className="text-white">Loading...</span>
           ) : (
             <>
-              <p className="font-medium">
+              <p className="font-medium text-center">
                 Rekomendasi untuk meningkatkan pendapatan di toko Anda
               </p>
               <ArrowCircleRight2 size="24" color="white" variant="Bold" />
