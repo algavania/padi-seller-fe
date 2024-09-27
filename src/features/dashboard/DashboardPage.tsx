@@ -26,14 +26,14 @@ export default function DashboardPage() {
   return (
     <main>
       <nav>
-        <NavbarCore toggleSidebar={toggleSidebar} /> {/* Pass toggle function */}
+        <NavbarCore toggleSidebar={toggleSidebar} /> 
       </nav>
       <div className="flex pb-10 pt-2 mt-16">
         <div className={`w-sidebar ${isSidebarOpen ? "block" : "hidden"} lg:block`}>
-          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /> {/* Pass props to Sidebar */}
+          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /> 
         </div>
         <div
-          className={`w-full px-6 lg:px-16 ml-0 lg:ml-8 md:px-12 transition-all duration-300`}
+          className={`w-full px-6 transition-all duration-300`}
         >
           <TopSection />
           <div className="mt-5"></div>
